@@ -23,6 +23,6 @@ namespace darlenyWebApp.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<darlenyWebApp.Models.Product> Product { get; set; }
+        public DbSet<Product> Product { get; set; }
     }
 }
