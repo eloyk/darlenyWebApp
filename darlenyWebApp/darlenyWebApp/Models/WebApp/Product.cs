@@ -1,4 +1,5 @@
-﻿using System;
+﻿using darlenyWebApp.Models.WebApp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,11 +27,16 @@ namespace darlenyWebApp.Models
         [Display(Name = "Last Buy")]
         public DateTime LastBuy { get; set; }
 
+        [Display(Name = "In Offer")]
+        public int OfferID { get; set; }
+
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public float Stock { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
+
+        public virtual Offer Offer { get; set; }
     }
 }

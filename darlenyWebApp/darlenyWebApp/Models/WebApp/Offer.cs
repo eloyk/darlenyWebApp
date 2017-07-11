@@ -9,7 +9,7 @@ namespace darlenyWebApp.Models.WebApp
     {
         public int OfferID { get; set; }
 
-        public bool OfferStatus { get; set; }
+        public string OfferStatus { get; set; }
 
         public float Percent { get; set; }
 
