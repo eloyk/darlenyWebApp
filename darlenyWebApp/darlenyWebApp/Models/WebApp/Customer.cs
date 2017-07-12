@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace darlenyWebApp.Models.WebApp
 {
@@ -42,6 +39,9 @@ namespace darlenyWebApp.Models.WebApp
         [StringLength(30, ErrorMessage = "The field {0} must contain between {2} and {1} characters", MinimumLength = 3)]
         [Required(ErrorMessage = "You must enter the field {0}")]
         public string Address { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        public string Photo { get; set; }
 
         [DataType(DataType.EmailAddress)]
         public string EMail { get; set; }

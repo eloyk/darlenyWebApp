@@ -1,9 +1,6 @@
 ﻿using darlenyWebApp.Models.WebApp;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace darlenyWebApp.Models
 {
@@ -16,6 +13,9 @@ namespace darlenyWebApp.Models
         [Required(ErrorMessage = "You must enter the field {0}")]
         [Display(Name = "Product Description")]
         public string Description { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        public string PhotoUrl { get; set; }
 
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
