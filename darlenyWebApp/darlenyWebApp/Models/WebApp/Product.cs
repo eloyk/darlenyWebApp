@@ -30,6 +30,9 @@ namespace darlenyWebApp.Models
         [Display(Name = "In Offer")]
         public int OfferID { get; set; }
 
+        [Display(Name = "Unity")]
+        public int UnitMeasureID { get; set; }
+
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public float Stock { get; set; }
@@ -38,5 +41,6 @@ namespace darlenyWebApp.Models
         public string Remarks { get; set; }
 
         public virtual Offer Offer { get; set; }
+        public virtual UnitMeasure UnitMeasure { get; set; }
     }
 }

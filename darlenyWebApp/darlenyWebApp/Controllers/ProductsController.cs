@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using darlenyWebApp.Data;
 using darlenyWebApp.Models;
+using darlenyWebApp.Models.WebApp;
 
 namespace darlenyWebApp.Controllers
 {
@@ -19,13 +20,12 @@ namespace darlenyWebApp.Controllers
             _context = context;    
         }
 
-        // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            var applicationDbContext = _context.Product.Include(p => p.Offer).Include(p => p.UnitMeasure);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,6 +34,8 @@ namespace darlenyWebApp.Controllers
             }
 
             var product = await _context.Product
+                .Include(p => p.Offer)
+                .Include(p => p.UnitMeasure)
                 .SingleOrDefaultAsync(m => m.ProductID == id);
             if (product == null)
             {
@@ -43,18 +45,16 @@ namespace darlenyWebApp.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
         public IActionResult Create()
         {
+            ViewData["OfferID"] = new SelectList(_context.Set<Offer>(), "OfferID", "OfferPercent");
+            ViewData["UnitMeasureID"] = new SelectList(_context.Set<UnitMeasure>(), "UnitMeasureID", "Description");
             return View();
         }
 
-        // POST: Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,Description,Price,LastBuy,Stock,Remarks")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -62,10 +62,11 @@ namespace darlenyWebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewData["OfferID"] = new SelectList(_context.Set<Offer>(), "OfferID", "OfferPercent", product.OfferID);
+            ViewData["UnitMeasureID"] = new SelectList(_context.Set<UnitMeasure>(), "UnitMeasureID", "Description", product.UnitMeasureID);
             return View(product);
         }
 
-        // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,15 +79,14 @@ namespace darlenyWebApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["OfferID"] = new SelectList(_context.Set<Offer>(), "OfferID", "OfferPercent", product.OfferID);
+            ViewData["UnitMeasureID"] = new SelectList(_context.Set<UnitMeasure>(), "UnitMeasureID", "Description", product.UnitMeasureID);
             return View(product);
         }
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductID,Description,Price,LastBuy,Stock,Remarks")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.ProductID)
             {
@@ -113,10 +113,11 @@ namespace darlenyWebApp.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            ViewData["OfferID"] = new SelectList(_context.Set<Offer>(), "OfferID", "OfferPercent", product.OfferID);
+            ViewData["UnitMeasureID"] = new SelectList(_context.Set<UnitMeasure>(), "UnitMeasureID", "Description", product.UnitMeasureID);
             return View(product);
         }
 
-        // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,6 +126,8 @@ namespace darlenyWebApp.Controllers
             }
 
             var product = await _context.Product
+                .Include(p => p.Offer)
+                .Include(p => p.UnitMeasure)
                 .SingleOrDefaultAsync(m => m.ProductID == id);
             if (product == null)
             {
@@ -134,7 +137,6 @@ namespace darlenyWebApp.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

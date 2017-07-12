@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using darlenyWebApp.Models;
+using darlenyWebApp.Models.WebApp;
 
 namespace darlenyWebApp.Data
 {
@@ -24,5 +25,7 @@ namespace darlenyWebApp.Data
         }
 
         public DbSet<Product> Product { get; set; }
+        public DbSet<Offer> Offer { get; set; }
+        public DbSet<UnitMeasure> UnitMeasure { get; set; }
     }
 }

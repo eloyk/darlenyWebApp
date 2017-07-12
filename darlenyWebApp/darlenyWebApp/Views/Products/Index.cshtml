@@ -27,6 +27,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Remarks)
                 </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Offer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitMeasure)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,6 +53,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Offer.OfferPercent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitMeasure.Description)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
